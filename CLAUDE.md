@@ -21,7 +21,14 @@ Obligatoires (8 pts sur 20, à terminer avant tout bonus) :
 - Marquer un événement comme « participé ».
 - Persistance locale avec AsyncStorage.
 
-Bonus : calendrier (`react-native-calendars`), météo du jour de l'événement (API OpenWeather), thème / icônes / splash screen, lieu + géolocalisation (`expo-location`) pour afficher la distance.
+Bonus : calendrier (`react-native-calendars`), météo du jour de l'événement (API **Open-Meteo** : gratuite, sans clé, prévisions sur 16 jours ; le cahier cite OpenWeather « par exemple »), thème / icônes / splash screen, lieu + géolocalisation (`expo-location`) pour afficher la distance.
+
+Choix pour les bonus :
+- Lieu : l'utilisateur tape une adresse dans le formulaire ; à l'enregistrement, `Location.geocodeAsync` la transforme en coordonnées. Adresse introuvable → l'événement est enregistré avec le nom du lieu mais sans coordonnées (pas de distance ni de météo).
+- Distance : position du téléphone (`requestForegroundPermissionsAsync` + `getCurrentPositionAsync`), calcul dans `utils/distance.ts` (formule de Haversine). Permission refusée → distance masquée.
+- Météo : seulement si l'événement a des coordonnées et a lieu dans les 16 prochains jours ; sinon la section est masquée.
+- Ajout au calendrier du téléphone : `expo-calendar`, importé depuis **`expo-calendar/legacy`** (la nouvelle API « Calendar@next » n'est pas disponible dans Expo Go). `createEventInCalendarAsync` ouvre la fenêtre native « Nouvel événement » pré-remplie (pas d'autorisation sur iOS 17+ ni sur Android ; sur iOS plus ancien, `requestCalendarPermissionsAsync` puis nouvel essai). Code dans `services/calendar.ts`.
+- Images de catégorie : `assets/images/categories/atelier.jpg`, `conference.jpg`, `sortie.jpg` (photos libres de droits), affichées avec `Image` de React Native.
 
 ## Stack
 

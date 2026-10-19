@@ -43,6 +43,17 @@ export function formatTimeRange(startIsoDate: string, endIsoDate: string): strin
   return `${formatTime(startIsoDate)} – ${formatTime(endIsoDate)}`;
 }
 
+/**
+ * Transforme une date en texte "AAAA-MM-JJ" (ex. "2026-05-24") : c'est le format du calendrier.
+ * On n'utilise pas toISOString() ici, car il passe à l'heure UTC et peut décaler d'un jour.
+ */
+export function toDateKey(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // les mois commencent à 0 en JavaScript
+  const day = String(date.getDate()).padStart(2, '0'); // padStart : "5" devient "05"
+  return `${year}-${month}-${day}`;
+}
+
 /** true si l'événement est terminé (sa date de fin est avant maintenant). */
 export function isPast(endIsoDate: string): boolean {
   return new Date(endIsoDate) < new Date();

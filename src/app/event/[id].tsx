@@ -15,6 +15,7 @@ import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
 import { useEvents } from '@/hooks/useEvents';
 import { useOrganizerName } from '@/hooks/useOrganizerName';
+import { addToPhoneCalendar } from '@/services/calendar';
 import { formatFullDate, formatTimeRange, isPast } from '@/utils/date';
 
 export default function EventDetailScreen() {
@@ -40,6 +41,19 @@ export default function EventDetailScreen() {
   const isCreator = event.createdBy === user.id; // seul le créateur peut modifier / supprimer
   const isParticipating = event.participants.includes(user.id);
   const past = isPast(event.endDate);
+
+  // Ajout au calendrier du téléphone (fenêtre native « Nouvel événement »)
+  const currentEvent = event; // copie qui garde le type « Event » (sans undefined) dans la fonction
+  async function handleAddToCalendar() {
+    const result = await addToPhoneCalendar(currentEvent);
+
+    // On affiche un message seulement quand on est sûr de ce qui s'est passé
+    if (result === 'added') {
+      Alert.alert(t('events.calendarAdded'));
+    } else if (result === 'denied') {
+      Alert.alert(t('events.calendarDenied'));
+    }
+  }
 
   // Suppression : on demande d'abord confirmation
   function confirmDelete() {
@@ -93,6 +107,15 @@ export default function EventDetailScreen() {
             title={isParticipating ? t('events.participationConfirmed') : t('events.participate')}
             variant={isParticipating ? 'secondary' : 'primary'}
             onPress={() => toggleParticipation(eventId)}
+          />
+        )}
+
+        {/* Ajouter l'événement dans le calendrier du téléphone (seulement s'il n'est pas terminé) */}
+        {past ? null : (
+          <Button
+            title={t('events.addToCalendar')}
+            variant="secondary"
+            onPress={handleAddToCalendar}
           />
         )}
 

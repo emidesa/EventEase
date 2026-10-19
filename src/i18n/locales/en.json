@@ -82,7 +82,10 @@
     "deleteTitle": "Delete this event?",
     "deleteMessage": "This cannot be undone.",
     "addFavorite": "Add to saved",
-    "removeFavorite": "Remove from saved"
+    "removeFavorite": "Remove from saved",
+    "addToCalendar": "Add to my calendar",
+    "calendarDenied": "Calendar access was denied. You can allow it in your phone Settings.",
+    "calendarAdded": "Added to your calendar ✓"
   },
   "create": {
     "overline": "Share a moment",
@@ -107,6 +110,10 @@
   "lists": {
     "emptyMine": "You haven't created any events yet. Tap + to create one.",
     "emptySaved": "No saved events. Tap the heart on an event to find it here."
+  },
+  "calendar": {
+    "title": "My calendar",
+    "empty": "No events on this day."
   },
   "profile": {
     "title": "My profile",

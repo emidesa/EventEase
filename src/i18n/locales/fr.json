@@ -82,7 +82,10 @@
     "deleteTitle": "Supprimer l'événement ?",
     "deleteMessage": "Cette action est définitive.",
     "addFavorite": "Ajouter aux favoris",
-    "removeFavorite": "Retirer des favoris"
+    "removeFavorite": "Retirer des favoris",
+    "addToCalendar": "Ajouter à mon calendrier",
+    "calendarDenied": "L'accès au calendrier a été refusé. Vous pouvez l'autoriser dans les Réglages du téléphone.",
+    "calendarAdded": "Ajouté à votre calendrier ✓"
   },
   "create": {
     "overline": "Partager un moment",
@@ -107,6 +110,10 @@
   "lists": {
     "emptyMine": "Vous n'avez encore créé aucun événement. Appuyez sur « + » pour en créer un.",
     "emptySaved": "Aucun événement enregistré. Touchez le cœur d'un événement pour le retrouver ici."
+  },
+  "calendar": {
+    "title": "Mon calendrier",
+    "empty": "Aucun événement ce jour-là."
   },
   "profile": {
     "title": "Mon profil",
