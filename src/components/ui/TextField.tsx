@@ -50,7 +50,7 @@ export function TextField({
 
 const styles = StyleSheet.create({
   container: {
-    gap: spacing.xs,
+    gap: spacing.sm, // espace entre le libellé, le champ et l'erreur
   },
   label: {
     fontFamily: fonts.medium,

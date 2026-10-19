@@ -29,10 +29,12 @@ export const fonts = {
 };
 
 export const fontSizes = {
-  small: 12,
-  body: 14,
-  large: 16,
-  title: 28,
+  overline: 12, // petits surtitres en majuscules
+  small: 14, // libellés, erreurs, sous-titres
+  body: 16, // texte normal, champs, boutons
+  large: 18, // nom de l'app
+  heading: 30, // phrase d'accroche de l'en-tête
+  title: 34, // titres d'écran
 };
 
 export const spacing = {

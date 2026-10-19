@@ -13,13 +13,11 @@
     },
     "login": {
       "overline": "Good to see you again",
-      "title": "Welcome.",
       "subtitle": "Log in to find your upcoming events.",
       "submit": "Log in"
     },
     "register": {
       "overline": "Join the movement",
-      "title": "Create an account.",
       "subtitle": "It only takes a few seconds to start sharing.",
       "acceptTerms": "I accept the terms of use and the privacy policy.",
       "submit": "Create my account"
