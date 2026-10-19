@@ -1,5 +1,5 @@
 /**
- * Formulaire d'un événement : nom, description, date, heures de début et de fin, catégorie.
+ * Formulaire d'un événement : nom, description, lieu, début et fin, catégorie.
  * Il sert pour la CRÉATION (champs vides) et servira pour la MODIFICATION (champs pré-remplis).
  * Quand tout est valide, il appelle onSubmit avec les données ; c'est l'écran qui décide quoi en faire.
  */
@@ -12,6 +12,7 @@ import { Chip } from '@/components/ui/Chip';
 import { DateTimeField } from '@/components/ui/DateTimeField';
 import { TextField } from '@/components/ui/TextField';
 import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
+import { buildEventLocation } from '@/services/location';
 import { EVENT_CATEGORIES, EventCategory, EventFormData } from '@/types/event';
 
 type EventFormProps = {
@@ -34,6 +35,7 @@ export function EventForm({ initialValues, submitLabel, onSubmit }: EventFormPro
   // Valeurs du formulaire. "??" = si initialValues n'existe pas, on prend la valeur de droite.
   const [title, setTitle] = useState(initialValues?.title ?? '');
   const [description, setDescription] = useState(initialValues?.description ?? '');
+  const [placeName, setPlaceName] = useState(initialValues?.location?.name ?? ''); // facultatif
   const [category, setCategory] = useState<EventCategory>(initialValues?.category ?? 'atelier');
   // Début et fin : chacun a un jour ET une heure (choisis dans le calendrier natif)
   const [start, setStart] = useState(
@@ -84,15 +86,19 @@ export function EventForm({ initialValues, submitLabel, onSubmit }: EventFormPro
       return;
     }
 
-    // 3. Tout est bon : on envoie les données à l'écran
     setLoading(true);
+
+    // 3. Le lieu : on cherche ses coordonnées GPS à partir de l'adresse tapée (géocodage)
+    const location = await buildEventLocation(placeName, initialValues?.location);
+
+    // 4. Tout est bon : on envoie les données à l'écran
     await onSubmit({
       title: title.trim(),
       description: description.trim(),
       category,
       date,
       endDate,
-      location: initialValues?.location, // le lieu sera ajouté au jour 3 (géolocalisation)
+      location,
     });
     setLoading(false);
   }
@@ -114,6 +120,13 @@ export function EventForm({ initialValues, submitLabel, onSubmit }: EventFormPro
         onChangeText={setDescription}
         error={descriptionError}
         multiline
+      />
+
+      <TextField
+        label={t('form.location')}
+        placeholder={t('form.locationPlaceholder')}
+        value={placeName}
+        onChangeText={setPlaceName}
       />
 
       {/* Début et fin : un appui ouvre le calendrier natif. En création, pas de jour passé */}

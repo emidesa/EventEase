@@ -1,5 +1,5 @@
 /**
- * Détail d'un événement : infos (date, horaire, lieu, organisateur, description),
+ * Détail d'un événement : infos (date, horaire, lieu, météo, organisateur, description),
  * bouton « Je participe », et pour le créateur seulement : Modifier / Supprimer.
  * [id] dans le nom du fichier = un paramètre de l'adresse : /event/seed-1 → id = "seed-1".
  */
@@ -15,8 +15,10 @@ import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
 import { useEvents } from '@/hooks/useEvents';
 import { useOrganizerName } from '@/hooks/useOrganizerName';
+import { useWeather } from '@/hooks/useWeather';
 import { addToPhoneCalendar } from '@/services/calendar';
 import { formatFullDate, formatTimeRange, isPast } from '@/utils/date';
+import { getWeatherType, WEATHER_ICONS } from '@/utils/weather';
 
 export default function EventDetailScreen() {
   const { t } = useTranslation();
@@ -26,6 +28,7 @@ export default function EventDetailScreen() {
 
   const event = events.find((e) => e.id === id);
   const organizerName = useOrganizerName(event ? event.createdBy : '');
+  const weather = useWeather(event); // null tant qu'il n'y a pas de météo à afficher
 
   // L'événement n'existe pas (ou vient d'être supprimé)
   if (!event || !user) {
@@ -87,6 +90,18 @@ export default function EventDetailScreen() {
           subtitle={formatTimeRange(event.date, event.endDate)}
         />
         {event.location ? <EventInfoRow icon="location-outline" title={event.location.name} /> : null}
+
+        {/* Météo du jour (Open-Meteo) : affichée seulement si elle est disponible */}
+        {weather ? (
+          <EventInfoRow
+            icon={WEATHER_ICONS[getWeatherType(weather.code)]}
+            title={t(`weather.${getWeatherType(weather.code)}`)}
+            subtitle={t('weather.temperatures', {
+              max: weather.maxTemperature,
+              min: weather.minTemperature,
+            })}
+          />
+        ) : null}
 
         <View style={styles.divider} />
         <OrganizerRow name={organizerName} />

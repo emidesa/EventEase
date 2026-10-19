@@ -87,6 +87,15 @@
     "calendarDenied": "Calendar access was denied. You can allow it in your phone Settings.",
     "calendarAdded": "Added to your calendar ✓"
   },
+  "weather": {
+    "clear": "Sunny",
+    "cloudy": "Cloudy",
+    "fog": "Fog",
+    "rain": "Rain",
+    "snow": "Snow",
+    "storm": "Storm",
+    "temperatures": "Forecast: {{max}}° high · {{min}}° low"
+  },
   "create": {
     "overline": "Share a moment",
     "title": "New event",
@@ -101,6 +110,8 @@
     "titlePlaceholder": "E.g. Zero waste workshop",
     "description": "Description",
     "descriptionPlaceholder": "Tell people about your event…",
+    "location": "Place",
+    "locationPlaceholder": "E.g. Maison des Associations, Lyon",
     "start": "Start",
     "end": "End",
     "category": "Category",

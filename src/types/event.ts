@@ -8,9 +8,10 @@ export const EVENT_CATEGORIES = ['atelier', 'conference', 'sortie'] as const;
 export type EventCategory = (typeof EVENT_CATEGORIES)[number];
 
 export type EventLocation = {
-  name: string;
-  latitude: number;
-  longitude: number;
+  name: string; // ce que l'utilisateur a tapé, ex. "Maison des Associations, Lyon"
+  // Coordonnées GPS trouvées à partir du nom (absentes si l'adresse est introuvable)
+  latitude?: number;
+  longitude?: number;
 };
 
 export type Event = {

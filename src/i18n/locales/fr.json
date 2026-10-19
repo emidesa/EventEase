@@ -87,6 +87,15 @@
     "calendarDenied": "L'accès au calendrier a été refusé. Vous pouvez l'autoriser dans les Réglages du téléphone.",
     "calendarAdded": "Ajouté à votre calendrier ✓"
   },
+  "weather": {
+    "clear": "Ensoleillé",
+    "cloudy": "Nuageux",
+    "fog": "Brouillard",
+    "rain": "Pluie",
+    "snow": "Neige",
+    "storm": "Orage",
+    "temperatures": "Prévisions : {{max}}° max · {{min}}° min"
+  },
   "create": {
     "overline": "Partager un moment",
     "title": "Nouvel événement",
@@ -101,6 +110,8 @@
     "titlePlaceholder": "Ex. Atelier zéro déchet",
     "description": "Description",
     "descriptionPlaceholder": "Présentez votre événement…",
+    "location": "Lieu",
+    "locationPlaceholder": "Ex. Maison des Associations, Lyon",
     "start": "Début",
     "end": "Fin",
     "category": "Catégorie",
