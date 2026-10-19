@@ -1,5 +1,70 @@
-import { Stack } from "expo-router";
+/**
+ * Layout racine : c'est le premier composant affiché par l'app.
+ * Il charge les polices, donne accès à l'utilisateur connecté (AuthProvider)
+ * et choisit quoi afficher : les écrans de connexion ou l'application.
+ */
+import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
+import {
+  DMSerifDisplay_400Regular,
+  DMSerifDisplay_400Regular_Italic,
+} from '@expo-google-fonts/dm-serif-display';
+import { useFonts } from 'expo-font';
+import { SplashScreen, Stack } from 'expo-router';
+import { useEffect } from 'react';
+
+import { AuthProvider } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
+import '@/i18n';
+
+// On garde le splash screen affiché jusqu'à ce que tout soit prêt
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  return <Stack />;
+  const [fontsLoaded] = useFonts({
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_700Bold,
+    DMSerifDisplay_400Regular,
+    DMSerifDisplay_400Regular_Italic,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <AuthProvider>
+      <RootNavigator />
+    </AuthProvider>
+  );
+}
+
+/** Choisit les écrans accessibles selon que l'utilisateur est connecté ou non. */
+function RootNavigator() {
+  const { user, isLoading } = useAuth();
+
+  // Quand la session a été vérifiée, on peut cacher le splash screen
+  useEffect(() => {
+    if (!isLoading) {
+      SplashScreen.hide();
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return null;
+  }
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      {/* Écrans accessibles seulement si l'utilisateur est connecté */}
+      <Stack.Protected guard={user !== null}>
+        <Stack.Screen name="(tabs)" />
+      </Stack.Protected>
+
+      {/* Écrans accessibles seulement si personne n'est connecté */}
+      <Stack.Protected guard={user === null}>
+        <Stack.Screen name="(auth)" />
+      </Stack.Protected>
+    </Stack>
+  );
 }
