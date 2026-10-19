@@ -5,7 +5,8 @@
     "comingSoon": "À venir",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "back": "Retour"
+    "back": "Retour",
+    "ok": "OK"
   },
   "auth": {
     "tabs": {
@@ -39,7 +40,8 @@
     "termsRequired": "Vous devez accepter les conditions.",
     "emailTaken": "Un compte existe déjà avec cet e-mail.",
     "invalidCredentials": "E-mail ou mot de passe incorrect.",
-    "unknown": "Une erreur est survenue. Réessayez."
+    "unknown": "Une erreur est survenue. Réessayez.",
+    "endBeforeStart": "La fin doit être après le début."
   },
   "tabs": {
     "home": "Accueil",
@@ -66,7 +68,39 @@
   "events": {
     "participating": "Je participe",
     "past": "Terminé",
-    "notFound": "Événement introuvable"
+    "notFound": "Événement introuvable",
+    "organizedBy": "Organisé par",
+    "organizerTeam": "Équipe EventEase",
+    "about": "À propos",
+    "participate": "Je participe",
+    "participationConfirmed": "Participation confirmée ✓",
+    "participantsCount_one": "{{count}} participant",
+    "participantsCount_other": "{{count}} participants",
+    "eventEnded": "Cet événement est terminé.",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleteTitle": "Supprimer l'événement ?",
+    "deleteMessage": "Cette action est définitive."
+  },
+  "create": {
+    "overline": "Partager un moment",
+    "title": "Nouvel événement",
+    "success": "Événement créé !"
+  },
+  "edit": {
+    "overline": "Mettre à jour",
+    "title": "Modifier l'événement"
+  },
+  "form": {
+    "title": "Nom de l'événement",
+    "titlePlaceholder": "Ex. Atelier zéro déchet",
+    "description": "Description",
+    "descriptionPlaceholder": "Présentez votre événement…",
+    "start": "Début",
+    "end": "Fin",
+    "category": "Catégorie",
+    "submitCreate": "Créer l'événement",
+    "submitEdit": "Enregistrer"
   },
   "profile": {
     "title": "Mon profil",

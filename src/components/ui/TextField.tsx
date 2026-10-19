@@ -14,6 +14,7 @@ type TextFieldProps = {
   secureTextEntry?: boolean; 
   keyboardType?: 'default' | 'email-address';
   autoCapitalize?: 'none' | 'words' | 'sentences';
+  multiline?: boolean; // true = champ sur plusieurs lignes (ex. description)
 };
 
 export function TextField({
@@ -25,13 +26,14 @@ export function TextField({
   secureTextEntry = false,
   keyboardType = 'default',
   autoCapitalize = 'sentences',
+  multiline = false,
 }: TextFieldProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
 
       <TextInput
-        style={[styles.input, error ? styles.inputError : null]}
+        style={[styles.input, multiline ? styles.inputMultiline : null, error ? styles.inputError : null]}
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
@@ -40,6 +42,7 @@ export function TextField({
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
         autoCorrect={false}
+        multiline={multiline}
       />
 
       {/* Le message d'erreur ne s'affiche que s'il y en a un */}
@@ -67,6 +70,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
     fontSize: fontSizes.body,
     color: colors.text,
+  },
+  inputMultiline: {
+    height: 110,
+    paddingTop: spacing.md,
+    textAlignVertical: 'top', // Android : le texte commence en haut du champ
   },
   inputError: {
     borderColor: colors.danger,

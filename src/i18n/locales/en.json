@@ -5,7 +5,8 @@
     "comingSoon": "Coming soon",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "back": "Back"
+    "back": "Back",
+    "ok": "OK"
   },
   "auth": {
     "tabs": {
@@ -39,7 +40,8 @@
     "termsRequired": "You must accept the terms.",
     "emailTaken": "An account already exists with this email.",
     "invalidCredentials": "Incorrect email or password.",
-    "unknown": "Something went wrong. Please try again."
+    "unknown": "Something went wrong. Please try again.",
+    "endBeforeStart": "The end must be after the start."
   },
   "tabs": {
     "home": "Home",
@@ -66,7 +68,39 @@
   "events": {
     "participating": "I'm going",
     "past": "Ended",
-    "notFound": "Event not found"
+    "notFound": "Event not found",
+    "organizedBy": "Organised by",
+    "organizerTeam": "EventEase team",
+    "about": "About",
+    "participate": "I'm going",
+    "participationConfirmed": "Attendance confirmed ✓",
+    "participantsCount_one": "{{count}} participant",
+    "participantsCount_other": "{{count}} participants",
+    "eventEnded": "This event has ended.",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteTitle": "Delete this event?",
+    "deleteMessage": "This cannot be undone."
+  },
+  "create": {
+    "overline": "Share a moment",
+    "title": "New event",
+    "success": "Event created!"
+  },
+  "edit": {
+    "overline": "Update",
+    "title": "Edit event"
+  },
+  "form": {
+    "title": "Event name",
+    "titlePlaceholder": "E.g. Zero waste workshop",
+    "description": "Description",
+    "descriptionPlaceholder": "Tell people about your event…",
+    "start": "Start",
+    "end": "End",
+    "category": "Category",
+    "submitCreate": "Create event",
+    "submitEdit": "Save"
   },
   "profile": {
     "title": "My profile",
