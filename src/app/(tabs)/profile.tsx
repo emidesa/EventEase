@@ -1,10 +1,10 @@
 /**
  * Onglet Profil : en-tête (« Membre depuis » + titre), avatar et nom, statistiques,
- * menu, choix de la langue et déconnexion.
- * Les statistiques et le menu seront branchés sur les vrais événements au jour 2.
+ * menu (« Mes événements », « Événements enregistrés »), choix de la langue et déconnexion.
  */
+import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LanguageSelector } from '@/components/profile/LanguageSelector';
@@ -13,10 +13,12 @@ import { Avatar } from '@/components/ui/Avatar';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
+import { useEvents } from '@/hooks/useEvents';
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
   const { user, signOut } = useAuth();
+  const { events } = useEvents();
 
   // Normalement impossible (l'onglet n'est accessible que connecté), mais TypeScript veut qu'on le gère
   if (!user) {
@@ -26,10 +28,9 @@ export default function ProfileScreen() {
   // Année d'inscription, ex. 2026 (les anciens comptes n'ont pas de date : on n'affiche rien)
   const memberSinceYear = user.createdAt ? new Date(user.createdAt).getFullYear() : null;
 
-  // En attendant les écrans du jour 2
-  function showComingSoon() {
-    Alert.alert(t('common.comingSoon'));
-  }
+  // Statistiques : on compte les événements auxquels l'utilisateur participe, et ceux qu'il a créés
+  const participationsCount = events.filter((event) => event.participants.includes(user.id)).length;
+  const creationsCount = events.filter((event) => event.createdBy === user.id).length;
 
   return (
     // SafeAreaView : évite d'écrire sous l'heure et la batterie du téléphone
@@ -52,13 +53,15 @@ export default function ProfileScreen() {
           <Text style={styles.email}>{user.email}</Text>
         </View>
 
-        {/* Statistiques (0 pour l'instant, calculées au jour 2) */}
-        <ProfileStats participations={0} creations={0} />
+        <ProfileStats participations={participationsCount} creations={creationsCount} />
 
         {/* Menu */}
         <View style={styles.menu}>
-          <MenuItem label={t('profile.menu.myEvents')} onPress={showComingSoon} />
-          <MenuItem label={t('profile.menu.savedEvents')} onPress={showComingSoon} />
+          <MenuItem label={t('profile.menu.myEvents')} onPress={() => router.push('/my-events')} />
+          <MenuItem
+            label={t('profile.menu.savedEvents')}
+            onPress={() => router.push('/saved-events')}
+          />
         </View>
 
         {/* Langue */}

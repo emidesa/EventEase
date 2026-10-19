@@ -72,6 +72,8 @@ function RootNavigator() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="event/[id]" />
         <Stack.Screen name="event/edit/[id]" />
+        <Stack.Screen name="my-events" />
+        <Stack.Screen name="saved-events" />
       </Stack.Protected>
 
       {/* Écrans accessibles seulement si personne n'est connecté */}

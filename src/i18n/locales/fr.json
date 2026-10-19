@@ -80,7 +80,9 @@
     "edit": "Modifier",
     "delete": "Supprimer",
     "deleteTitle": "Supprimer l'événement ?",
-    "deleteMessage": "Cette action est définitive."
+    "deleteMessage": "Cette action est définitive.",
+    "addFavorite": "Ajouter aux favoris",
+    "removeFavorite": "Retirer des favoris"
   },
   "create": {
     "overline": "Partager un moment",
@@ -101,6 +103,10 @@
     "category": "Catégorie",
     "submitCreate": "Créer l'événement",
     "submitEdit": "Enregistrer"
+  },
+  "lists": {
+    "emptyMine": "Vous n'avez encore créé aucun événement. Appuyez sur « + » pour en créer un.",
+    "emptySaved": "Aucun événement enregistré. Touchez le cœur d'un événement pour le retrouver ici."
   },
   "profile": {
     "title": "Mon profil",

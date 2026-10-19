@@ -82,3 +82,32 @@ export async function getUserById(userId: string): Promise<PublicUser | null> {
   }
   return toPublicUser(user);
 }
+
+/**
+ * Ajoute un événement aux favoris de l'utilisateur, ou le retire s'il y est déjà.
+ * Renvoie l'utilisateur mis à jour.
+ */
+export async function toggleFavorite(userId: string, eventId: string): Promise<PublicUser | null> {
+  const users = await getUsers();
+
+  // 1. On retrouve l'utilisateur
+  const user = users.find((u) => u.id === userId);
+  if (!user) {
+    return null;
+  }
+
+  // 2. On ajoute ou on retire l'événement de ses favoris
+  const isFavorite = user.favorites.includes(eventId);
+  const updatedUser: User = {
+    ...user,
+    favorites: isFavorite
+      ? user.favorites.filter((id) => id !== eventId) // déjà en favori : on le retire
+      : [...user.favorites, eventId], // pas encore en favori : on l'ajoute
+  };
+
+  // 3. On remplace l'ancien utilisateur par le nouveau dans la liste, puis on enregistre
+  const newUsers = users.map((u) => (u.id === userId ? updatedUser : u));
+  await saveUsers(newUsers);
+
+  return toPublicUser(updatedUser);
+}

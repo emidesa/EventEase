@@ -4,7 +4,7 @@
  */
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { getUserById, login, register } from '@/services/auth';
+import * as authService from '@/services/auth';
 import { clearSession, getSessionUserId, saveSessionUserId } from '@/services/storage';
 import { PublicUser } from '@/types/user';
 
@@ -15,6 +15,7 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (name: string, email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  toggleFavorite: (eventId: string) => Promise<void>;
 };
 
 // Création du contexte (vide au départ, il est rempli par AuthProvider)
@@ -35,7 +36,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const userId = await getSessionUserId();
 
       if (userId) {
-        const savedUser = await getUserById(userId);
+        const savedUser = await authService.getUserById(userId);
         setUser(savedUser);
       }
 
@@ -47,14 +48,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   /** Connexion : vérifie les identifiants puis mémorise l'utilisateur. */
   async function signIn(email: string, password: string) {
-    const loggedUser = await login(email, password); // lance une erreur si c'est incorrect
+    const loggedUser = await authService.login(email, password); // lance une erreur si c'est incorrect
     await saveSessionUserId(loggedUser.id);
     setUser(loggedUser);
   }
 
   /** Inscription : crée le compte puis connecte directement l'utilisateur. */
   async function signUp(name: string, email: string, password: string) {
-    const newUser = await register(name, email, password); // lance une erreur si l'email est pris
+    const newUser = await authService.register(name, email, password); // lance une erreur si l'email est pris
     await saveSessionUserId(newUser.id);
     setUser(newUser);
   }
@@ -65,8 +66,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUser(null);
   }
 
+  /** Favori : ajoute ou retire un événement des favoris de l'utilisateur connecté. */
+  async function toggleFavorite(eventId: string) {
+    if (!user) return;
+    const updatedUser = await authService.toggleFavorite(user.id, eventId);
+    setUser(updatedUser); // tous les écrans voient tout de suite le nouveau favori
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, isLoading, signIn, signUp, signOut, toggleFavorite }}>
       {children}
     </AuthContext.Provider>
   );

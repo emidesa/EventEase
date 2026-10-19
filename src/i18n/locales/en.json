@@ -80,7 +80,9 @@
     "edit": "Edit",
     "delete": "Delete",
     "deleteTitle": "Delete this event?",
-    "deleteMessage": "This cannot be undone."
+    "deleteMessage": "This cannot be undone.",
+    "addFavorite": "Add to saved",
+    "removeFavorite": "Remove from saved"
   },
   "create": {
     "overline": "Share a moment",
@@ -101,6 +103,10 @@
     "category": "Category",
     "submitCreate": "Create event",
     "submitEdit": "Save"
+  },
+  "lists": {
+    "emptyMine": "You haven't created any events yet. Tap + to create one.",
+    "emptySaved": "No saved events. Tap the heart on an event to find it here."
   },
   "profile": {
     "title": "My profile",

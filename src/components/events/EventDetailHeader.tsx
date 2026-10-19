@@ -1,6 +1,6 @@
 /**
  * En-tête du détail d'un événement : un bandeau de couleur (en attendant les images de catégorie)
- * avec un bouton retour rond en haut à gauche.
+ * avec un bouton retour rond en haut à gauche et un cœur (favori) en haut à droite.
  */
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -10,9 +10,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { colors, spacing } from '@/constants/theme';
 
-export function EventDetailHeader() {
+type EventDetailHeaderProps = {
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+};
+
+export function EventDetailHeader({ isFavorite, onToggleFavorite }: EventDetailHeaderProps) {
   const { t } = useTranslation();
-  const insets = useSafeAreaInsets(); // pour ne pas placer le bouton sous l'heure / l'encoche
+  const insets = useSafeAreaInsets(); // pour ne pas placer les boutons sous l'heure / l'encoche
 
   return (
     <View style={[styles.header, { paddingTop: insets.top + spacing.sm }]}>
@@ -20,13 +25,29 @@ export function EventDetailHeader() {
       <View style={styles.circleAccent} />
       <View style={styles.circleMint} />
 
-      <Pressable
-        style={styles.roundButton}
-        onPress={() => router.back()}
-        accessibilityLabel={t('common.back')}
-      >
-        <Ionicons name="chevron-back" size={20} color={colors.text} />
-      </Pressable>
+      {/* Boutons : retour à gauche, cœur à droite */}
+      <View style={styles.buttonsRow}>
+        <Pressable
+          style={styles.roundButton}
+          onPress={() => router.back()}
+          accessibilityLabel={t('common.back')}
+        >
+          <Ionicons name="chevron-back" size={20} color={colors.text} />
+        </Pressable>
+
+        <Pressable
+          style={styles.roundButton}
+          onPress={onToggleFavorite}
+          accessibilityLabel={isFavorite ? t('events.removeFavorite') : t('events.addFavorite')}
+        >
+          {/* Cœur rempli et corail si l'événement est en favori, sinon cœur vide */}
+          <Ionicons
+            name={isFavorite ? 'heart' : 'heart-outline'}
+            size={20}
+            color={isFavorite ? colors.accent : colors.text}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -57,6 +78,10 @@ const styles = StyleSheet.create({
     borderRadius: 55,
     backgroundColor: colors.mint,
     opacity: 0.2,
+  },
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // un bouton à gauche, l'autre à droite
   },
   roundButton: {
     width: 40,

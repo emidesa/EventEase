@@ -20,7 +20,7 @@ import { formatFullDate, formatTimeRange, isPast } from '@/utils/date';
 export default function EventDetailScreen() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>(); // on lit l'id dans l'adresse
-  const { user } = useAuth();
+  const { user, toggleFavorite } = useAuth();
   const { events, toggleParticipation, removeEvent } = useEvents();
 
   const event = events.find((e) => e.id === id);
@@ -58,7 +58,10 @@ export default function EventDetailScreen() {
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.scrollContent}>
-      <EventDetailHeader />
+      <EventDetailHeader
+        isFavorite={user.favorites.includes(eventId)}
+        onToggleFavorite={() => toggleFavorite(eventId)}
+      />
 
       <View style={styles.card}>
         <Text style={styles.category}>{t(`categories.${event.category}`)}</Text>
