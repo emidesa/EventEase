@@ -119,7 +119,7 @@ Style :
 - Icônes fines (style contour).
 
 Écrans et navigation :
-- 4 onglets : **Accueil**, **Calendrier**, **+** (bouton central corail surélevé qui ouvre la création), **Profil**.
+- 4 onglets : **Accueil**, **Calendrier**, **+** (ouvre la création), **Profil**, tous alignés. La barre est la barre native du système (`NativeTabs` de `expo-router/unstable-native-tabs`) : Liquid Glass sur iOS 26, Material sur Android. Icônes fines en contour (SF Symbols `sf` / Material `md`), sans variante remplie quand l'onglet est sélectionné. L'onglet actif est signalé par la couleur `primary`. Écart assumé avec la maquette : pas de carré corail surélevé pour le « + ».
 - Connexion et inscription partagent le même en-tête (logo, « Des moments simples. Des liens qui restent. ») et un sélecteur « Connexion | Inscription ». L'inscription demande prénom et nom, email, mot de passe et l'acceptation des conditions.
 - Accueil : « Bonjour, [prénom] », filtres par catégorie, événement mis en avant (prochain événement), liste « Prochains rendez-vous ».
 - Détail : image de catégorie en en-tête, bouton retour et cœur, date et horaires, lieu et distance, organisateur, « À propos », bouton de participation.

@@ -13,6 +13,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 
 import { AuthProvider } from '@/context/AuthContext';
+import { EventsProvider } from '@/context/EventsContext';
 import { useAuth } from '@/hooks/useAuth';
 import { loadSavedLanguage } from '@/i18n';
 
@@ -40,8 +41,11 @@ export default function RootLayout() {
   }
 
   return (
+    // EventsProvider est À L'INTÉRIEUR d'AuthProvider, car il a besoin de l'utilisateur connecté
     <AuthProvider>
-      <RootNavigator />
+      <EventsProvider>
+        <RootNavigator />
+      </EventsProvider>
     </AuthProvider>
   );
 }

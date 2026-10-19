@@ -24,3 +24,9 @@ export type Event = {
   participants: string[];
   createdBy: string;
 };
+
+/**
+ * Ce que l'utilisateur remplit dans le formulaire de création / modification.
+ * C'est un Event sans les champs gérés automatiquement par l'app (id, participants, créateur).
+ */
+export type EventFormData = Omit<Event, 'id' | 'participants' | 'createdBy'>;

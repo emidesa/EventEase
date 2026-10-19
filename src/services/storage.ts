@@ -4,12 +4,14 @@
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { Event } from '@/types/event';
 import { User } from '@/types/user';
 
 // Les "clés" sont les noms sous lesquels on range les données dans le téléphone
 const USERS_KEY = '@eventease/users';
 const SESSION_KEY = '@eventease/session';
 const LANGUAGE_KEY = '@eventease/language';
+const EVENTS_KEY = '@eventease/events';
 
 // ---------- Utilisateurs ----------
 
@@ -75,4 +77,32 @@ export async function getSavedLanguage(): Promise<string | null> {
 /** Enregistre la langue choisie. */
 export async function saveLanguage(language: string): Promise<void> {
   await AsyncStorage.setItem(LANGUAGE_KEY, language);
+}
+
+// ---------- Événements ----------
+
+/**
+ * Récupère la liste des événements.
+ * Renvoie null si aucun événement n'a jamais été enregistré (premier lancement de l'app) :
+ * ça permettra d'ajouter les événements de démo à ce moment-là.
+ */
+export async function getEvents(): Promise<Event[] | null> {
+  try {
+    const json = await AsyncStorage.getItem(EVENTS_KEY);
+
+    if (json === null) {
+      return null;
+    }
+
+    return JSON.parse(json);
+  } catch (error) {
+    console.log('Erreur lors de la lecture des événements', error);
+    return [];
+  }
+}
+
+/** Enregistre la liste complète des événements. */
+export async function saveEvents(events: Event[]): Promise<void> {
+  const json = JSON.stringify(events);
+  await AsyncStorage.setItem(EVENTS_KEY, json);
 }
