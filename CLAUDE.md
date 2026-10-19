@@ -73,6 +73,7 @@ type User = {
   email: string;
   passwordHash: string;
   favorites: string[];       // ids des événements enregistrés (cœur)
+  createdAt?: string;        
 };
 type EventCategory = 'atelier' | 'conference' | 'sortie';
 type Event = {

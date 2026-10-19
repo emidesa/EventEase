@@ -20,6 +20,7 @@ function toPublicUser(user: User): PublicUser {
     name: user.name,
     email: user.email,
     favorites: user.favorites,
+    createdAt: user.createdAt,
   };
 }
 
@@ -42,6 +43,7 @@ export async function register(name: string, email: string, password: string): P
     email: cleanEmail,
     passwordHash: await hashPassword(password),
     favorites: [],
+    createdAt: new Date().toISOString(), // date et heure actuelles, ex. "2026-10-19T14:30:00.000Z"
   };
 
   // On ajoute le nouveau compte à la liste, puis on enregistre la liste

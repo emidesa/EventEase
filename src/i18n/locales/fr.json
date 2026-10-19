@@ -53,6 +53,16 @@
     "sortie": "Sorties"
   },
   "profile": {
+    "title": "Mon profil",
+    "memberSince": "Membre depuis {{year}}",
+    "stats": {
+      "participations": "Participations",
+      "creations": "Créations"
+    },
+    "menu": {
+      "myEvents": "Mes événements",
+      "savedEvents": "Événements enregistrés"
+    },
     "language": "Langue",
     "logout": "Se déconnecter"
   }

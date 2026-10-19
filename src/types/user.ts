@@ -8,6 +8,7 @@ export type User = {
   email: string;
   passwordHash: string;
   favorites: string[];
+  createdAt?: string; // date d'inscription (ISO). Optionnel : les comptes créés avant ne l'ont pas
 };
 
 /**

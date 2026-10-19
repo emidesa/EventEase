@@ -53,6 +53,16 @@
     "sortie": "Outings"
   },
   "profile": {
+    "title": "My profile",
+    "memberSince": "Member since {{year}}",
+    "stats": {
+      "participations": "Participations",
+      "creations": "Created"
+    },
+    "menu": {
+      "myEvents": "My events",
+      "savedEvents": "Saved events"
+    },
     "language": "Language",
     "logout": "Log out"
   }

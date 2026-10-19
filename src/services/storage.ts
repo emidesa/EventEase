@@ -9,6 +9,7 @@ import { User } from '@/types/user';
 // Les "clés" sont les noms sous lesquels on range les données dans le téléphone
 const USERS_KEY = '@eventease/users';
 const SESSION_KEY = '@eventease/session';
+const LANGUAGE_KEY = '@eventease/language';
 
 // ---------- Utilisateurs ----------
 
@@ -57,4 +58,21 @@ export async function saveSessionUserId(userId: string): Promise<void> {
 /** Supprime la session (déconnexion). */
 export async function clearSession(): Promise<void> {
   await AsyncStorage.removeItem(SESSION_KEY);
+}
+
+// ---------- Langue choisie ----------
+
+/** Récupère la langue choisie dans le Profil ("fr" ou "en"), ou null si aucun choix. */
+export async function getSavedLanguage(): Promise<string | null> {
+  try {
+    return await AsyncStorage.getItem(LANGUAGE_KEY);
+  } catch (error) {
+    console.log('Erreur lors de la lecture de la langue', error);
+    return null;
+  }
+}
+
+/** Enregistre la langue choisie. */
+export async function saveLanguage(language: string): Promise<void> {
+  await AsyncStorage.setItem(LANGUAGE_KEY, language);
 }

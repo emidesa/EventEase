@@ -10,11 +10,11 @@ import {
 } from '@expo-google-fonts/dm-serif-display';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { AuthProvider } from '@/context/AuthContext';
 import { useAuth } from '@/hooks/useAuth';
-import '@/i18n';
+import { loadSavedLanguage } from '@/i18n';
 
 // On garde le splash screen affiché jusqu'à ce que tout soit prêt
 SplashScreen.preventAutoHideAsync();
@@ -28,7 +28,14 @@ export default function RootLayout() {
     DMSerifDisplay_400Regular_Italic,
   });
 
-  if (!fontsLoaded) {
+  // Chargement de la langue choisie dans le Profil (si l'utilisateur en a choisi une)
+  const [languageLoaded, setLanguageLoaded] = useState(false);
+
+  useEffect(() => {
+    loadSavedLanguage().finally(() => setLanguageLoaded(true));
+  }, []);
+
+  if (!fontsLoaded || !languageLoaded) {
     return null;
   }
 
