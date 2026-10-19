@@ -10,6 +10,7 @@
  */
 import * as Crypto from 'expo-crypto';
 
+import { SEED_EVENTS } from '@/data/seed';
 import { Event, EventFormData } from '@/types/event';
 import { getEvents, saveEvents } from './storage';
 
@@ -17,9 +18,10 @@ import { getEvents, saveEvents } from './storage';
 export async function loadEvents(): Promise<Event[]> {
   const events = await getEvents();
 
-  // Premier lancement : rien n'est encore enregistré
+  // Premier lancement : rien n'est encore enregistré, on ajoute les événements de démo
   if (events === null) {
-    return [];
+    await saveEvents(SEED_EVENTS);
+    return SEED_EVENTS;
   }
 
   return events;

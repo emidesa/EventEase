@@ -9,3 +9,8 @@ export function getInitials(name: string): string {
 
   return (firstLetter + lastLetter).toUpperCase();
 }
+
+/** Renvoie le prénom (le premier mot du nom) : "Léa Bernard" → "Léa". */
+export function getFirstName(name: string): string {
+  return name.trim().split(' ')[0];
+}

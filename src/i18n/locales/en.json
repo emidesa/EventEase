@@ -4,7 +4,8 @@
     "tagline": "Simple moments.\nLasting connections.",
     "comingSoon": "Coming soon",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "back": "Back"
   },
   "auth": {
     "tabs": {
@@ -51,6 +52,21 @@
     "atelier": "Workshops",
     "conference": "Talks",
     "sortie": "Outings"
+  },
+  "home": {
+    "greeting": "Hello, {{name}}",
+    "titleStart": "What moment shall we ",
+    "titleHighlight": "share",
+    "titleEnd": "?",
+    "featuredBadge": "Our pick",
+    "upcomingOverline": "Coming up",
+    "upcomingTitle": "Upcoming events",
+    "empty": "No events for now."
+  },
+  "events": {
+    "participating": "I'm going",
+    "past": "Ended",
+    "notFound": "Event not found"
   },
   "profile": {
     "title": "My profile",

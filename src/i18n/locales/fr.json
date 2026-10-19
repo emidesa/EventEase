@@ -4,7 +4,8 @@
     "tagline": "Des moments simples.\nDes liens qui restent.",
     "comingSoon": "À venir",
     "cancel": "Annuler",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "back": "Retour"
   },
   "auth": {
     "tabs": {
@@ -51,6 +52,21 @@
     "atelier": "Ateliers",
     "conference": "Conférences",
     "sortie": "Sorties"
+  },
+  "home": {
+    "greeting": "Bonjour, {{name}}",
+    "titleStart": "Quel moment allons-nous ",
+    "titleHighlight": "partager",
+    "titleEnd": " ?",
+    "featuredBadge": "Notre sélection",
+    "upcomingOverline": "À venir",
+    "upcomingTitle": "Prochains rendez-vous",
+    "empty": "Aucun événement pour le moment."
+  },
+  "events": {
+    "participating": "Je participe",
+    "past": "Terminé",
+    "notFound": "Événement introuvable"
   },
   "profile": {
     "title": "Mon profil",
