@@ -1,0 +1,61 @@
+{
+  "common": {
+    "appName": "EventEase",
+    "tagline": "Des moments simples.\nDes liens qui restent.",
+    "comingSoon": "À venir",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "auth": {
+    "tabs": {
+      "login": "Connexion",
+      "register": "Inscription"
+    },
+    "login": {
+      "overline": "Heureux de vous revoir",
+      "title": "Bienvenue.",
+      "subtitle": "Connectez-vous pour retrouver vos prochains événements.",
+      "submit": "Se connecter"
+    },
+    "register": {
+      "overline": "Rejoignez le mouvement",
+      "title": "Créer un compte.",
+      "subtitle": "Quelques secondes suffisent pour commencer à partager.",
+      "acceptTerms": "J'accepte les conditions d'utilisation et la politique de confidentialité.",
+      "submit": "Créer mon compte"
+    },
+    "fields": {
+      "name": "Prénom et nom",
+      "namePlaceholder": "Léa Bernard",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "lea@exemple.fr",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "6 caractères minimum"
+    }
+  },
+  "errors": {
+    "required": "Ce champ est obligatoire.",
+    "invalidEmail": "Adresse e-mail invalide.",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères.",
+    "termsRequired": "Vous devez accepter les conditions.",
+    "emailTaken": "Un compte existe déjà avec cet e-mail.",
+    "invalidCredentials": "E-mail ou mot de passe incorrect.",
+    "unknown": "Une erreur est survenue. Réessayez."
+  },
+  "tabs": {
+    "home": "Accueil",
+    "calendar": "Calendrier",
+    "create": "Créer",
+    "profile": "Profil"
+  },
+  "categories": {
+    "all": "Tout",
+    "atelier": "Ateliers",
+    "conference": "Conférences",
+    "sortie": "Sorties"
+  },
+  "profile": {
+    "language": "Langue",
+    "logout": "Se déconnecter"
+  }
+}

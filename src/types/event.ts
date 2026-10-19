@@ -1,0 +1,26 @@
+/**
+ * Types liés aux événements organisés par l'association.
+ */
+
+/** Liste des catégories, utilisée pour les filtres de l'accueil et le formulaire de création. */
+export const EVENT_CATEGORIES = ['atelier', 'conference', 'sortie'] as const;
+
+export type EventCategory = (typeof EVENT_CATEGORIES)[number];
+
+export type EventLocation = {
+  name: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type Event = {
+  id: string;
+  title: string;
+  description: string;
+  category: EventCategory;
+  date: string;
+  endDate: string;
+  location?: EventLocation;
+  participants: string[];
+  createdBy: string;
+};

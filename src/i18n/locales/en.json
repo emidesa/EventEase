@@ -1,0 +1,61 @@
+{
+  "common": {
+    "appName": "EventEase",
+    "tagline": "Simple moments.\nLasting connections.",
+    "comingSoon": "Coming soon",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "auth": {
+    "tabs": {
+      "login": "Log in",
+      "register": "Sign up"
+    },
+    "login": {
+      "overline": "Good to see you again",
+      "title": "Welcome.",
+      "subtitle": "Log in to find your upcoming events.",
+      "submit": "Log in"
+    },
+    "register": {
+      "overline": "Join the movement",
+      "title": "Create an account.",
+      "subtitle": "It only takes a few seconds to start sharing.",
+      "acceptTerms": "I accept the terms of use and the privacy policy.",
+      "submit": "Create my account"
+    },
+    "fields": {
+      "name": "Full name",
+      "namePlaceholder": "Lea Bernard",
+      "email": "Email address",
+      "emailPlaceholder": "lea@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "At least 6 characters"
+    }
+  },
+  "errors": {
+    "required": "This field is required.",
+    "invalidEmail": "Invalid email address.",
+    "passwordTooShort": "Password must be at least 6 characters.",
+    "termsRequired": "You must accept the terms.",
+    "emailTaken": "An account already exists with this email.",
+    "invalidCredentials": "Incorrect email or password.",
+    "unknown": "Something went wrong. Please try again."
+  },
+  "tabs": {
+    "home": "Home",
+    "calendar": "Calendar",
+    "create": "Create",
+    "profile": "Profile"
+  },
+  "categories": {
+    "all": "All",
+    "atelier": "Workshops",
+    "conference": "Talks",
+    "sortie": "Outings"
+  },
+  "profile": {
+    "language": "Language",
+    "logout": "Log out"
+  }
+}
