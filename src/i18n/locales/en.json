@@ -2,9 +2,7 @@
   "common": {
     "appName": "EventEase",
     "tagline": "Simple moments.\nLasting connections.",
-    "comingSoon": "Coming soon",
     "cancel": "Cancel",
-    "confirm": "Confirm",
     "back": "Back",
     "ok": "OK"
   },
@@ -85,7 +83,8 @@
     "removeFavorite": "Remove from saved",
     "addToCalendar": "Add to my calendar",
     "calendarDenied": "Calendar access was denied. You can allow it in your phone Settings.",
-    "calendarAdded": "Added to your calendar ✓"
+    "calendarAdded": "Added to your calendar ✓",
+    "distanceFromYou": "{{distance}} from you"
   },
   "weather": {
     "clear": "Sunny",

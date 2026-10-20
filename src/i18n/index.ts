@@ -12,32 +12,27 @@ import { getSavedLanguage, saveLanguage } from '@/services/storage';
 import en from './locales/en.json';
 import fr from './locales/fr.json';
 
-export const SUPPORTED_LANGUAGES = ['fr', 'en'] as const;
-export type Language = (typeof SUPPORTED_LANGUAGES)[number];
+/** Les deux langues de l'app. */
+export type Language = 'fr' | 'en';
 
-export const DEFAULT_LANGUAGE: Language = 'fr';
-
-export const resources = {
-  fr: { translation: fr },
-  en: { translation: en },
-} as const;
-
-/** Vérifie qu'un code de langue (ex. venant du téléphone ou du stockage) est géré par l'app. */
-export function isSupportedLanguage(code: string | null | undefined): code is Language {
-  return SUPPORTED_LANGUAGES.includes(code as Language);
-}
-
-/** Langue du téléphone si elle est gérée, sinon le français. */
+/** Langue du téléphone si c'est l'anglais, sinon le français (langue par défaut). */
 function getDeviceLanguage(): Language {
-  const code = getLocales()[0]?.languageCode;
-  return isSupportedLanguage(code) ? code : DEFAULT_LANGUAGE;
+  const code = getLocales()[0]?.languageCode; // ex. "fr", "en", "es"...
+  if (code === 'en') {
+    return 'en';
+  }
+  return 'fr';
 }
 
-// i18n.use() est la méthode officielle pour brancher react-i18next 
+// i18n.use() est la méthode officielle pour brancher react-i18next
 i18n.use(initReactI18next).init({
-  resources,
-  lng: getDeviceLanguage(),
-  fallbackLng: DEFAULT_LANGUAGE,
+  // Les textes de chaque langue (fichiers fr.json et en.json)
+  resources: {
+    fr: { translation: fr },
+    en: { translation: en },
+  },
+  lng: getDeviceLanguage(), // langue au démarrage
+  fallbackLng: 'fr', // si un texte manque en anglais, on affiche la version française
   // React échappe déjà le texte affiché : pas besoin que i18next le fasse aussi
   interpolation: { escapeValue: false },
 });
@@ -47,9 +42,9 @@ i18n.use(initReactI18next).init({
  * à la place de celle du téléphone.
  */
 export async function loadSavedLanguage(): Promise<void> {
-  const savedLanguage = await getSavedLanguage();
+  const savedLanguage = await getSavedLanguage(); // "fr", "en", ou null si aucun choix
 
-  if (isSupportedLanguage(savedLanguage)) {
+  if (savedLanguage === 'fr' || savedLanguage === 'en') {
     await i18n.changeLanguage(savedLanguage);
   }
 }

@@ -2,9 +2,7 @@
   "common": {
     "appName": "EventEase",
     "tagline": "Des moments simples.\nDes liens qui restent.",
-    "comingSoon": "À venir",
     "cancel": "Annuler",
-    "confirm": "Confirmer",
     "back": "Retour",
     "ok": "OK"
   },
@@ -85,7 +83,8 @@
     "removeFavorite": "Retirer des favoris",
     "addToCalendar": "Ajouter à mon calendrier",
     "calendarDenied": "L'accès au calendrier a été refusé. Vous pouvez l'autoriser dans les Réglages du téléphone.",
-    "calendarAdded": "Ajouté à votre calendrier ✓"
+    "calendarAdded": "Ajouté à votre calendrier ✓",
+    "distanceFromYou": "À {{distance}} de vous"
   },
   "weather": {
     "clear": "Ensoleillé",

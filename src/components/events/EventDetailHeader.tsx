@@ -3,11 +3,11 @@
  * avec un bouton retour rond en haut à gauche et un cœur (favori) en haut à droite.
  */
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BackButton } from '@/components/ui/BackButton';
 import { colors, spacing } from '@/constants/theme';
 
 type EventDetailHeaderProps = {
@@ -27,13 +27,7 @@ export function EventDetailHeader({ isFavorite, onToggleFavorite }: EventDetailH
 
       {/* Boutons : retour à gauche, cœur à droite */}
       <View style={styles.buttonsRow}>
-        <Pressable
-          style={styles.roundButton}
-          onPress={() => router.back()}
-          accessibilityLabel={t('common.back')}
-        >
-          <Ionicons name="chevron-back" size={20} color={colors.text} />
-        </Pressable>
+        <BackButton />
 
         <Pressable
           style={styles.roundButton}

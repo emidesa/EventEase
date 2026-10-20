@@ -5,8 +5,8 @@
  */
 import i18n from '@/i18n';
 
-/** Langue utilisée pour le format : "fr-FR" ou "en-US". */
-function getLocale(): string {
+/** Langue utilisée pour le format des dates et des nombres : "fr-FR" ou "en-US". */
+export function getLocale(): string {
   return i18n.language === 'en' ? 'en-US' : 'fr-FR';
 }
 

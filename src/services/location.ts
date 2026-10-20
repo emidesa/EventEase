@@ -1,6 +1,7 @@
 /**
- * Tout ce qui concerne les lieux et la localisation (expo-location).
- * Géocodage = transformer une adresse en texte en coordonnées GPS (latitude, longitude).
+ * Tout ce qui concerne les lieux et la localisation (expo-location) :
+ * - la position actuelle du téléphone (pour calculer la distance jusqu'aux événements)
+ * - le géocodage = transformer une adresse en texte en coordonnées GPS (latitude, longitude)
  * C'est le téléphone qui fait la recherche (Apple sur iPhone, Google sur Android) : pas de clé à fournir.
  */
 import * as Location from 'expo-location';
@@ -8,13 +9,37 @@ import { Platform } from 'react-native';
 
 import { EventLocation } from '@/types/event';
 
+/** Un point GPS. */
+export type Coordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+/**
+ * Position actuelle du téléphone.
+ * Demande d'abord l'autorisation (la fenêtre ne s'affiche qu'une fois : le téléphone retient la réponse).
+ * Renvoie null si l'autorisation est refusée ou si la position est introuvable.
+ */
+export async function getUserPosition(): Promise<Coordinates | null> {
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      return null;
+    }
+
+    const position = await Location.getCurrentPositionAsync();
+    return { latitude: position.coords.latitude, longitude: position.coords.longitude };
+  } catch (error) {
+    console.log('Position introuvable', error);
+    return null;
+  }
+}
+
 /**
  * Cherche les coordonnées GPS d'une adresse.
  * Renvoie null si l'adresse est introuvable, s'il n'y a pas de réseau ou si l'autorisation est refusée.
  */
-export async function geocodeAddress(
-  address: string,
-): Promise<{ latitude: number; longitude: number } | null> {
+export async function geocodeAddress(address: string): Promise<Coordinates | null> {
   try {
     // Android : le géocodage demande l'autorisation de localisation (pas sur iPhone)
     if (Platform.OS === 'android') {

@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EventForm } from '@/components/events/EventForm';
 import { Button } from '@/components/ui/Button';
-import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
+import { colors, spacing, textStyles } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
 import { useEvents } from '@/hooks/useEvents';
 import { EventFormData } from '@/types/event';
@@ -27,7 +27,7 @@ export default function EditEventScreen() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.content}>
-          <Text style={styles.title}>{t('events.notFound')}</Text>
+          <Text style={[textStyles.screenTitle, styles.centered]}>{t('events.notFound')}</Text>
           <Button title={t('common.back')} variant="secondary" onPress={() => router.back()} />
         </View>
       </SafeAreaView>
@@ -49,8 +49,8 @@ export default function EditEventScreen() {
       >
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
-            <Text style={styles.overline}>{t('edit.overline')}</Text>
-            <Text style={styles.title}>{t('edit.title')}</Text>
+            <Text style={textStyles.overline}>{t('edit.overline')}</Text>
+            <Text style={[textStyles.screenTitle, styles.centered]}>{t('edit.title')}</Text>
           </View>
 
           {/* Le même formulaire que la création, rempli avec les valeurs de l'événement */}
@@ -90,17 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.xs,
   },
-  overline: {
-    fontFamily: fonts.bold,
-    fontSize: fontSizes.overline,
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    color: colors.primary,
-  },
-  title: {
-    fontFamily: fonts.title,
-    fontSize: fontSizes.heading,
-    color: colors.text,
+  centered: {
     textAlign: 'center',
   },
 });

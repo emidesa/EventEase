@@ -1,6 +1,6 @@
 /**
  * Carte d'un événement dans la liste « Prochains rendez-vous » :
- * bloc date à gauche, puis catégorie, titre, description, horaire, lieu et badge « Je participe ».
+ * bloc date à gauche, puis catégorie, titre, description, horaire, lieu (et distance) et badge « Je participe ».
  * Un événement passé est affiché grisé.
  */
 import { Ionicons } from '@expo/vector-icons';
@@ -8,18 +8,22 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
+import { Coordinates } from '@/services/location';
 import { Event } from '@/types/event';
 import { formatDayNumber, formatMonthShort, formatTimeRange, isPast } from '@/utils/date';
+import { getEventDistanceText } from '@/utils/distance';
 
 type EventCardProps = {
   event: Event;
   isParticipating: boolean; // l'utilisateur connecté participe-t-il ?
+  userPosition: Coordinates | null; // position du téléphone (null = distance cachée)
   onPress: () => void;
 };
 
-export function EventCard({ event, isParticipating, onPress }: EventCardProps) {
+export function EventCard({ event, isParticipating, userPosition, onPress }: EventCardProps) {
   const { t } = useTranslation();
   const past = isPast(event.endDate);
+  const distance = getEventDistanceText(userPosition, event.location); // ex. "1,2 km", ou null
 
   return (
     <Pressable
@@ -51,7 +55,10 @@ export function EventCard({ event, isParticipating, onPress }: EventCardProps) {
         {event.location ? (
           <View style={styles.infoRow}>
             <Ionicons name="location-outline" size={14} color={colors.textMuted} />
-            <Text style={styles.infoText}>{event.location.name}</Text>
+            <Text style={styles.infoText}>
+              {/* « Maison des Associations · 1,2 km » (la distance seulement si on la connaît) */}
+              {distance ? `${event.location.name} · ${distance}` : event.location.name}
+            </Text>
           </View>
         ) : null}
 

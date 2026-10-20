@@ -47,13 +47,13 @@ src/
 │   ├── (tabs)/          index.tsx (accueil), calendar.tsx, create.tsx (bouton « + »), profile.tsx
 │   └── event/           [id].tsx (détail), form.tsx (création / modification)
 ├── components/          composants d'interface réutilisables
-│   ├── ui/              briques génériques : Button, Input, Card, EmptyState…
+│   ├── ui/              briques génériques : Button, TextField, Chip, Avatar, Logo, BackButton…
 │   └── events/          composants métier : EventCard, EventList, ParticipateButton…
 ├── hooks/               hooks personnalisés : useAuth, useEvents, useEvent(id), useWeather, useDistance…
 ├── context/             AuthContext, EventsContext (état global + actions)
 ├── services/            storage.ts (accès AsyncStorage), weather.ts, location.ts
 ├── types/               types partagés (Event, User)
-├── utils/               petites fonctions pures (date.ts, distance.ts…)
+├── utils/               petites fonctions pures (date.ts, distance.ts, events.ts, navigation.ts…)
 ├── data/                seed.ts : événements de démo
 ├── i18n/                index.ts (configuration i18next), locales/fr.json, locales/en.json
 └── constants/           thème (couleurs, espacements)
@@ -100,7 +100,9 @@ Libellés affichés des catégories : Ateliers, Conférences, Sorties. Chaque ca
 
 ## Design (maquette `EventEase-Maquette.pdf`)
 
-Toujours suivre la maquette. Les valeurs sont centralisées dans `constants/theme.ts` : aucune couleur, taille de police ou police écrite en dur dans un composant.
+Toujours suivre la maquette. Les valeurs sont centralisées dans `constants/theme.ts` : aucune couleur, taille de police ou police écrite en dur dans un composant. Les styles de texte communs (`textStyles.overline` pour les surtitres, `textStyles.screenTitle` pour les titres d'écran) sont aussi dans le thème : ne pas les recopier, les réutiliser (`style={[textStyles.overline, styles.monAjustement]}`).
+
+Pas de doublon : un morceau de code utilisé à plusieurs endroits va dans un composant (`components/ui/`) ou une fonction (`utils/`) — ex. `sortByDate`, `openEventDetail`, `getLocale`, `Logo`, `BackButton`.
 
 Couleurs :
 

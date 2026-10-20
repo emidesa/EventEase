@@ -2,12 +2,12 @@
  * En-tête des écrans de connexion et d'inscription :
  * le logo, le nom de l'app et la phrase d'accroche, sur fond vert d'eau avec des ronds décoratifs.
  */
-import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
+import { Logo } from '@/components/ui/Logo';
+import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
 
 export function AuthHeader() {
   const { t } = useTranslation();
@@ -23,10 +23,7 @@ export function AuthHeader() {
 
       {/* Logo + nom de l'app */}
       <View style={styles.logoRow}>
-        <View style={styles.logo}>
-          <Ionicons name="leaf" size={14} color={colors.peach} />
-        </View>
-        <Text style={styles.appName}>{t('common.appName')}</Text>
+        <Logo />
       </View>
 
       <Text style={styles.tagline}>{t('common.tagline')}</Text>
@@ -60,23 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.sage,
   },
   logoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginBottom: spacing.xl,
-  },
-  logo: {
-    width: 28,
-    height: 28,
-    borderRadius: radius.input,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  appName: {
-    fontFamily: fonts.bold,
-    fontSize: fontSizes.large,
-    color: colors.text,
+    marginBottom: spacing.xl, // espace entre le logo et la phrase d'accroche
   },
   tagline: {
     fontFamily: fonts.title,

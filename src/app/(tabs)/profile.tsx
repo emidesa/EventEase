@@ -11,7 +11,7 @@ import { LanguageSelector } from '@/components/profile/LanguageSelector';
 import { ProfileStats } from '@/components/profile/ProfileStats';
 import { Avatar } from '@/components/ui/Avatar';
 import { MenuItem } from '@/components/ui/MenuItem';
-import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
+import { colors, fonts, fontSizes, radius, spacing, textStyles } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
 import { useEvents } from '@/hooks/useEvents';
 
@@ -20,7 +20,8 @@ export default function ProfileScreen() {
   const { user, signOut } = useAuth();
   const { events } = useEvents();
 
-  // Normalement impossible (l'onglet n'est accessible que connecté), mais TypeScript veut qu'on le gère
+  // Après « Se déconnecter », user passe à null alors que l'écran est encore affiché une fraction
+  // de seconde (le temps que Stack.Protected montre la connexion) : on n'affiche rien plutôt que planter
   if (!user) {
     return null;
   }
@@ -39,11 +40,11 @@ export default function ProfileScreen() {
         {/* En-tête */}
         <View style={styles.header}>
           {memberSinceYear ? (
-            <Text style={styles.overline}>
+            <Text style={textStyles.overline}>
               {t('profile.memberSince', { year: memberSinceYear })}
             </Text>
           ) : null}
-          <Text style={styles.screenTitle}>{t('profile.title')}</Text>
+          <Text style={textStyles.screenTitle}>{t('profile.title')}</Text>
         </View>
 
         {/* Avatar, nom et email */}
@@ -90,18 +91,6 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     gap: spacing.xs,
-  },
-  overline: {
-    fontFamily: fonts.bold,
-    fontSize: fontSizes.overline,
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    color: colors.primary,
-  },
-  screenTitle: {
-    fontFamily: fonts.title,
-    fontSize: fontSizes.heading,
-    color: colors.text,
   },
   identity: {
     alignItems: 'center', // centre l'avatar et les textes

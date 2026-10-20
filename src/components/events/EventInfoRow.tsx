@@ -3,13 +3,23 @@
  * puis un texte principal et un texte secondaire (comme sur la maquette).
  */
 import { Ionicons } from '@expo/vector-icons';
-import { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
 
+/** Les icônes Ionicons utilisées dans le détail (date, lieu, météo). */
+export type InfoIcon =
+  | 'calendar-outline'
+  | 'location-outline'
+  | 'sunny-outline'
+  | 'partly-sunny-outline'
+  | 'cloud-outline'
+  | 'rainy-outline'
+  | 'snow-outline'
+  | 'thunderstorm-outline';
+
 type EventInfoRowProps = {
-  icon: ComponentProps<typeof Ionicons>['name']; // le nom d'une icône Ionicons
+  icon: InfoIcon;
   title: string;
   subtitle?: string;
 };

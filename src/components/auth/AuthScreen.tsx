@@ -6,7 +6,7 @@
 import { ReactNode } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
+import { colors, fonts, fontSizes, spacing, textStyles } from '@/constants/theme';
 import { AuthHeader } from './AuthHeader';
 import { AuthSwitch } from './AuthSwitch';
 
@@ -36,7 +36,7 @@ export function AuthScreen({ active, overline, subtitle, children }: AuthScreenP
           <AuthSwitch active={active} />
 
           <View style={styles.titleBlock}>
-            <Text style={styles.overline}>{overline}</Text>
+            <Text style={[textStyles.overline, styles.overline]}>{overline}</Text>
             <Text style={styles.subtitle}>{subtitle}</Text>
           </View>
 
@@ -69,12 +69,8 @@ const styles = StyleSheet.create({
     gap: spacing.md, // espace entre le surtitre et le sous-titre
   },
   overline: {
-    fontFamily: fonts.bold,
-    fontSize: fontSizes.body,
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
+    fontSize: fontSizes.body, // un peu plus grand que le surtitre habituel
     textAlign: 'center',
-    color: colors.primary,
   },
   subtitle: {
     fontFamily: fonts.regular,

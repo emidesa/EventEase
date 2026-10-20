@@ -2,16 +2,17 @@
  * Page « liste d'événements » avec un bouton retour et un titre.
  * Utilisée par « Mes événements » et « Événements enregistrés » (même affichage, listes différentes).
  */
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { useTranslation } from 'react-i18next';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EventCard } from '@/components/events/EventCard';
+import { BackButton } from '@/components/ui/BackButton';
 import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
+import { useUserLocation } from '@/hooks/useUserLocation';
 import { Event } from '@/types/event';
+import { sortByDate } from '@/utils/events';
+import { openEventDetail } from '@/utils/navigation';
 
 type EventListPageProps = {
   title: string;
@@ -20,40 +21,37 @@ type EventListPageProps = {
 };
 
 export function EventListPage({ title, events, emptyText }: EventListPageProps) {
-  const { t } = useTranslation();
   const { user } = useAuth();
+  const userPosition = useUserLocation(); // position du téléphone, pour la distance
 
   // Les événements triés par date, le plus proche en premier
-  const sortedEvents = [...events].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-  );
+  const sortedEvents = sortByDate(events);
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.content}>
-        {/* En-tête : bouton retour + titre */}
-        <View style={styles.header}>
-          <Pressable
-            style={styles.backButton}
-            onPress={() => router.back()}
-            accessibilityLabel={t('common.back')}
-          >
-            <Ionicons name="chevron-back" size={20} color={colors.text} />
-          </Pressable>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-
-        {sortedEvents.length === 0 ? <Text style={styles.empty}>{emptyText}</Text> : null}
-
-        {sortedEvents.map((event) => (
+      <FlatList
+        data={sortedEvents}
+        keyExtractor={(event) => event.id}
+        renderItem={({ item }) => (
           <EventCard
-            key={event.id}
-            event={event}
-            isParticipating={user ? event.participants.includes(user.id) : false}
-            onPress={() => router.push({ pathname: '/event/[id]', params: { id: event.id } })}
+            event={item}
+            // user peut être null une fraction de seconde pendant la déconnexion
+            isParticipating={user ? item.participants.includes(user.id) : false}
+            userPosition={userPosition}
+            onPress={() => openEventDetail(item.id)}
           />
-        ))}
-      </ScrollView>
+        )}
+        // En-tête : bouton retour + titre
+        ListHeaderComponent={
+          <View style={styles.header}>
+            <BackButton />
+            <Text style={styles.title}>{title}</Text>
+          </View>
+        }
+        // Affiché quand la liste est vide
+        ListEmptyComponent={<Text style={styles.empty}>{emptyText}</Text>}
+        contentContainerStyle={styles.content}
+      />
     </SafeAreaView>
   );
 }
@@ -72,16 +70,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.md,
     marginBottom: spacing.sm,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   title: {
     flex: 1,

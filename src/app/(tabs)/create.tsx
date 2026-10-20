@@ -9,7 +9,7 @@ import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, Vi
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EventForm } from '@/components/events/EventForm';
-import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
+import { colors, spacing, textStyles } from '@/constants/theme';
 import { useEvents } from '@/hooks/useEvents';
 import { EventFormData } from '@/types/event';
 
@@ -35,8 +35,8 @@ export default function CreateScreen() {
       >
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.header}>
-            <Text style={styles.overline}>{t('create.overline')}</Text>
-            <Text style={styles.title}>{t('create.title')}</Text>
+            <Text style={textStyles.overline}>{t('create.overline')}</Text>
+            <Text style={textStyles.screenTitle}>{t('create.title')}</Text>
           </View>
 
           <EventForm key={formKey} submitLabel={t('form.submitCreate')} onSubmit={handleCreate} />
@@ -61,17 +61,5 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     gap: spacing.xs,
-  },
-  overline: {
-    fontFamily: fonts.bold,
-    fontSize: fontSizes.overline,
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    color: colors.primary,
-  },
-  title: {
-    fontFamily: fonts.title,
-    fontSize: fontSizes.heading,
-    color: colors.text,
   },
 });

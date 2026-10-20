@@ -14,7 +14,7 @@ import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native
 
 import { Button } from '@/components/ui/Button';
 import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
-import { formatFullDate, formatTime } from '@/utils/date';
+import { formatFullDate, formatTime, getLocale } from '@/utils/date';
 
 type DateTimeFieldProps = {
   label: string;
@@ -84,7 +84,7 @@ export function DateTimeField({ label, value, onChange, minimumDate, error }: Da
               mode="datetime"
               display="inline" // le calendrier avec la ligne de l'heure
               minimumDate={minimumDate}
-              locale={i18n.language === 'en' ? 'en-US' : 'fr-FR'}
+              locale={getLocale()}
               accentColor={colors.primary}
               themeVariant="light" // toujours lisible, même si le téléphone est en mode sombre
               onValueChange={(_event, selectedDate) => onChange(selectedDate)}
