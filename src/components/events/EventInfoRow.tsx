@@ -1,6 +1,6 @@
 /**
  * Ligne d'information du détail d'un événement : une icône dans un carré vert d'eau,
- * puis un texte principal et un texte secondaire (comme sur la maquette).
+ * puis un texte principal et un texte secondaire.
  */
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native';
