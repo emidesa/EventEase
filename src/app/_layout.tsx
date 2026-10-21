@@ -1,7 +1,7 @@
 /**
  * Layout racine : c'est le premier composant affiché par l'app.
- * Il charge les polices, donne accès à l'utilisateur connecté (AuthProvider)
- * et choisit quoi afficher : les écrans de connexion ou l'application.
+ * Il charge les polices et la langue choisie, donne accès à l'utilisateur connecté (AuthProvider)
+ * et aux événements (EventsProvider), puis choisit quoi afficher : les écrans de connexion ou l'application.
  */
 import { DMSans_400Regular, DMSans_500Medium, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
 import {

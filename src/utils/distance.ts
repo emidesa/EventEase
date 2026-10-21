@@ -1,8 +1,8 @@
 /**
  * Calcul et affichage de la distance entre l'utilisateur et un événement.
  */
-import { Coordinates } from '@/services/location';
 import { EventLocation } from '@/types/event';
+import { Coordinates } from '@/types/location';
 import { getLocale } from './date';
 
 const EARTH_RADIUS_KM = 6371; // rayon moyen de la Terre

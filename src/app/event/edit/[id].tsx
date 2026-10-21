@@ -34,6 +34,8 @@ export default function EditEventScreen() {
     );
   }
 
+  // Copie nécessaire : dans une fonction déclarée avec "function", TypeScript oublie
+  // la vérification "if (!event)" faite plus haut (ce n'est pas le cas des fonctions fléchées)
   const eventId = event.id;
 
   async function handleSave(data: EventFormData) {

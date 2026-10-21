@@ -5,7 +5,8 @@
  */
 import { useEffect, useState } from 'react';
 
-import { Coordinates, getUserPosition } from '@/services/location';
+import { getUserPosition } from '@/services/location';
+import { Coordinates } from '@/types/location';
 
 export function useUserLocation(): Coordinates | null {
   const [position, setPosition] = useState<Coordinates | null>(null);

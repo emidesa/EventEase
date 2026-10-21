@@ -18,6 +18,7 @@ export const colors = {
   textMuted: '#7A8589', // gris : descriptions, libellés
   border: '#E2E2DC', // gris clair : bordures des champs
   danger: '#C8553D', // rouge : erreurs, déconnexion
+  overlay: 'rgba(0, 0, 0, 0.3)', // noir transparent à 30 % : fond derrière une fenêtre
 };
 
 // Les noms doivent être les mêmes que dans useFonts (src/app/_layout.tsx)
@@ -70,5 +71,12 @@ export const textStyles = StyleSheet.create({
     fontFamily: fonts.title,
     fontSize: fontSizes.heading,
     color: colors.text,
+  },
+  // Message affiché quand une liste est vide (ex. « Aucun événement pour le moment. »)
+  emptyText: {
+    fontFamily: fonts.regular,
+    fontSize: fontSizes.small,
+    color: colors.textMuted,
+    textAlign: 'center',
   },
 });

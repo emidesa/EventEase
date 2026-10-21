@@ -5,7 +5,7 @@
  */
 import { Event } from '@/types/event';
 
-/** Id du créateur des événements de démo (ce n'est pas un vrai compte : on affichera « Équipe EventEase »). */
+/** Id du créateur des événements de démo (ce n'est pas un vrai compte : le détail affiche « Équipe EventEase »). */
 export const SEED_ORGANIZER_ID = 'eventease-team';
 
 /**

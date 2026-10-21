@@ -43,14 +43,13 @@ export default function EventDetailScreen() {
     );
   }
 
-  const eventId = event.id;
   const distance = getEventDistanceText(userPosition, event.location); // ex. "1,2 km", ou null
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.scrollContent}>
       <EventDetailHeader
-        isFavorite={user.favorites.includes(eventId)}
-        onToggleFavorite={() => toggleFavorite(eventId)}
+        isFavorite={user.favorites.includes(event.id)}
+        onToggleFavorite={() => toggleFavorite(event.id)}
       />
 
       <View style={styles.card}>

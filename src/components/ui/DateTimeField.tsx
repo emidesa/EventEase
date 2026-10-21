@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)', // noir transparent à 30 %
+    backgroundColor: colors.overlay,
   },
   sheet: {
     backgroundColor: colors.background,

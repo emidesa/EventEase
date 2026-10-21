@@ -1,6 +1,6 @@
 /**
  * Configuration de la traduction (i18next).
- * Importé une seule fois au démarrage (dans le layout racine) : il suffit ensuite d'utiliser
+ * Ce fichier est exécuté une seule fois, au démarrage (même s'il est importé à plusieurs endroits) : il suffit ensuite d'utiliser
  * `const { t } = useTranslation()` dans les composants.
  */
 import { getLocales } from 'expo-localization';

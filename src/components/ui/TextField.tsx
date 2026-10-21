@@ -10,8 +10,8 @@ type TextFieldProps = {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
-  error?: string; 
-  secureTextEntry?: boolean; 
+  error?: string;
+  secureTextEntry?: boolean;
   keyboardType?: 'default' | 'email-address';
   autoCapitalize?: 'none' | 'words' | 'sentences';
   multiline?: boolean; // true = champ sur plusieurs lignes (ex. description)

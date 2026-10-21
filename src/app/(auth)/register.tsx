@@ -54,7 +54,7 @@ export default function RegisterScreen() {
     }
 
     if (password.length < PASSWORD_MIN_LENGTH) {
-      setPasswordError(t('errors.passwordTooShort'));
+      setPasswordError(t('errors.passwordTooShort', { min: PASSWORD_MIN_LENGTH }));
       hasError = true;
     } else {
       setPasswordError('');
@@ -112,7 +112,7 @@ export default function RegisterScreen() {
 
       <TextField
         label={t('auth.fields.password')}
-        placeholder={t('auth.fields.passwordPlaceholder')}
+        placeholder={t('auth.fields.passwordPlaceholder', { min: PASSWORD_MIN_LENGTH })}
         value={password}
         onChangeText={setPassword}
         error={passwordError}

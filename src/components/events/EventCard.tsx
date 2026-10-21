@@ -1,5 +1,5 @@
 /**
- * Carte d'un événement dans la liste « Prochains rendez-vous » :
+ * Carte d'un événement dans les listes (Accueil, Calendrier, Mes événements, Événements enregistrés) :
  * bloc date à gauche, puis catégorie, titre, description, horaire, lieu (et distance) et badge « Je participe ».
  * Un événement passé est affiché grisé.
  */
@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { colors, fonts, fontSizes, radius, spacing } from '@/constants/theme';
-import { Coordinates } from '@/services/location';
 import { Event } from '@/types/event';
+import { Coordinates } from '@/types/location';
 import { formatDayNumber, formatMonthShort, formatTimeRange, isPast } from '@/utils/date';
 import { getEventDistanceText } from '@/utils/distance';
 

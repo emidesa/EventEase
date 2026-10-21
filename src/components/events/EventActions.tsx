@@ -15,6 +15,7 @@ import { useEvents } from '@/hooks/useEvents';
 import { addToPhoneCalendar } from '@/services/calendar';
 import { Event } from '@/types/event';
 import { isPast } from '@/utils/date';
+import { isParticipant } from '@/utils/events';
 
 type EventActionsProps = {
   event: Event;
@@ -27,7 +28,7 @@ export function EventActions({ event }: EventActionsProps) {
 
   // « user !== null » : user peut être null une fraction de seconde pendant la déconnexion
   const isCreator = user !== null && event.createdBy === user.id; // seul le créateur peut modifier / supprimer
-  const isParticipating = user !== null && event.participants.includes(user.id);
+  const isParticipating = isParticipant(event, user);
   const past = isPast(event.endDate);
 
   // Ajout au calendrier du téléphone (fenêtre native « Nouvel événement »)

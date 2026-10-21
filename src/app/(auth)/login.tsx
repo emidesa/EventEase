@@ -9,7 +9,7 @@ import { AuthScreen } from '@/components/auth/AuthScreen';
 import { Button } from '@/components/ui/Button';
 import { TextField } from '@/components/ui/TextField';
 import { useAuth } from '@/hooks/useAuth';
-import { isValidEmail } from '@/utils/validation';
+import { isValidEmail, PASSWORD_MIN_LENGTH } from '@/utils/validation';
 
 export default function LoginScreen() {
   const { t } = useTranslation();
@@ -83,7 +83,7 @@ export default function LoginScreen() {
 
       <TextField
         label={t('auth.fields.password')}
-        placeholder={t('auth.fields.passwordPlaceholder')}
+        placeholder={t('auth.fields.passwordPlaceholder', { min: PASSWORD_MIN_LENGTH })}
         value={password}
         onChangeText={setPassword}
         error={passwordError}

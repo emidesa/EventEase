@@ -7,11 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EventCard } from '@/components/events/EventCard';
 import { BackButton } from '@/components/ui/BackButton';
-import { colors, fonts, fontSizes, spacing } from '@/constants/theme';
+import { colors, fonts, fontSizes, spacing, textStyles } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import { Event } from '@/types/event';
-import { sortByDate } from '@/utils/events';
+import { isParticipant, sortByDate } from '@/utils/events';
 import { openEventDetail } from '@/utils/navigation';
 
 type EventListPageProps = {
@@ -35,8 +35,7 @@ export function EventListPage({ title, events, emptyText }: EventListPageProps) 
         renderItem={({ item }) => (
           <EventCard
             event={item}
-            // user peut être null une fraction de seconde pendant la déconnexion
-            isParticipating={user ? item.participants.includes(user.id) : false}
+            isParticipating={isParticipant(item, user)}
             userPosition={userPosition}
             onPress={() => openEventDetail(item.id)}
           />
@@ -49,7 +48,7 @@ export function EventListPage({ title, events, emptyText }: EventListPageProps) 
           </View>
         }
         // Affiché quand la liste est vide
-        ListEmptyComponent={<Text style={styles.empty}>{emptyText}</Text>}
+        ListEmptyComponent={<Text style={[textStyles.emptyText, styles.empty]}>{emptyText}</Text>}
         contentContainerStyle={styles.content}
       />
     </SafeAreaView>
@@ -77,12 +76,9 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.heading - 4,
     color: colors.text,
   },
+  // Le reste du style vient de textStyles.emptyText
   empty: {
-    fontFamily: fonts.regular,
-    fontSize: fontSizes.small,
     lineHeight: fontSizes.small + 6,
-    color: colors.textMuted,
-    textAlign: 'center',
     marginTop: spacing.xl,
   },
 });

@@ -1,7 +1,7 @@
 /**
  * Statistiques du profil : nombre de participations et nombre d'événements créés,
  * entre deux traits de séparation.
- * Pour l'instant les chiffres valent 0 : ils seront calculés au jour 2 avec les événements.
+ * Les chiffres sont calculés par l'écran Profil et reçus en props.
  */
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';

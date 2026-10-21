@@ -1,56 +1,144 @@
-# Welcome to your Expo app 👋
+# EventEase
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile pour l'association **EventEase**, qui organise des conférences, des ateliers et des sorties. Les membres et les bénévoles peuvent **consulter les événements**, **en créer** et **gérer leur participation**.
 
-## Get started
+Prototype réalisé en 4 jours avec **React Native**, **Expo** et **TypeScript**.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Fonctionnalités
 
-2. Start the app
+**Demandées par le cahier des charges**
+- Inscription et connexion, sans serveur : les comptes sont stockés sur le téléphone.
+- Liste des événements : titre, description, date et horaire.
+- Création, modification et suppression d'un événement. Seul le créateur peut modifier ou supprimer, et la suppression est confirmée.
+- « Je participe » : marquer un événement comme participé, avec un compteur de participants.
+- Persistance locale avec **AsyncStorage** : les données restent après la fermeture de l'app.
 
-   ```bash
-   npx expo start
-   ```
+**Bonus**
+- **Calendrier** du mois (`react-native-calendars`), avec les événements du jour choisi.
+- **Météo** du jour de l'événement avec l'API **Open-Meteo**, gratuite et sans clé.
+- **Lieu et distance** : l'adresse est transformée en coordonnées (géocodage), puis la distance est calculée depuis la position du téléphone.
+- **Design** fidèle à la maquette : thème, polices, icônes, barre d'onglets native, splash screen.
 
-In the output, you'll find options to open the app in a
+**En plus**
+- Traduction **français / anglais**, avec un choix de langue dans le Profil.
+- **Favoris** et liste des événements enregistrés.
+- **Catégories** (ateliers, conférences, sorties) et filtres sur l'accueil.
+- **Ajout au calendrier du téléphone** (Calendrier d'Apple, Agenda Google).
+- **Profil** : statistiques, mes événements, déconnexion.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Lancer le projet
 
-## Get a fresh project
+### Prérequis
 
-When you're ready, run:
+- **Node.js 22.13** ou plus récent.
+- L'application **Expo Go** sur un téléphone (App Store ou Google Play), compatible avec le **SDK 57**.
+- Le téléphone et l'ordinateur sur le **même réseau Wi-Fi**.
+
+### Installation
 
 ```bash
-npm run reset-project
+git clone https://github.com/emidesa/EventEase.git
+cd EventEase
+npm install
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+### Démarrage
 
-### Other setup steps
+```bash
+npx expo start
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Scanne ensuite le **QR code** affiché dans le terminal : avec l'appareil photo sur iPhone, ou depuis Expo Go sur Android.
 
-## Learn more
+Si le téléphone ne se connecte pas (Wi-Fi d'école filtré, par exemple), essaie `npx expo start --tunnel`.
 
-To learn more about developing your project with Expo, look at the following resources:
+### Premier lancement
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Crée un compte depuis l'écran **Inscription** : il n'y a pas de compte par défaut.
+- **7 événements de démonstration** sont ajoutés automatiquement au premier lancement, avec des dates calculées à partir d'aujourd'hui.
+- Accepte la demande de **localisation** pour voir les distances. Si tu la refuses, l'app fonctionne quand même, sans afficher la distance.
 
-## Join the community
+### Vérifier le code
 
-Join our community of developers creating universal apps.
+```bash
+npx tsc --noEmit   # vérifie les types TypeScript
+npx expo lint      # vérifie la qualité du code (ESLint)
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Pourquoi Expo Router ?
+
+Le cahier des charges demande d'utiliser **React Navigation** pour gérer les écrans. Ce projet utilise **Expo Router**, qui est **construit sur React Navigation** :
+
+- les navigateurs `Stack` (pile d'écrans) et `Tabs` (onglets) d'Expo Router **sont** ceux de React Navigation ;
+- Expo Router ajoute une seule chose : la **navigation par fichiers**. Chaque fichier du dossier `src/app/` devient automatiquement un écran, au lieu de déclarer chaque écran à la main avec `createNativeStackNavigator()`.
+
+| Fichier | Écran |
+|---|---|
+| `src/app/(auth)/login.tsx` | `/login` |
+| `src/app/(tabs)/index.tsx` | l'accueil `/` |
+| `src/app/event/[id].tsx` | le détail d'un événement, `/event/123` |
+
+**Pourquoi ce choix :**
+1. **C'est la solution recommandée par Expo**, et celle des nouveaux projets Expo.
+2. **Moins de code à maintenir** : il n'y a pas de liste d'écrans à tenir à jour, puisque l'arborescence des fichiers **est** la navigation.
+3. **La protection des écrans est simple** : `Stack.Protected` n'affiche l'application que si l'utilisateur est connecté, et la connexion sinon. Il n'y a aucune redirection à écrire à la main.
+4. **Les routes sont typées** : une adresse d'écran mal écrite est signalée par TypeScript.
+
+Les **groupes** entre parenthèses (`(auth)`, `(tabs)`) rangent les écrans sans changer leur adresse, et donnent à chaque groupe sa propre navigation : une pile pour la connexion, des onglets pour l'application.
+
+---
+
+## Architecture
+
+Le code est organisé **en couches**, chacune avec un seul rôle :
+
+```
+src/
+├── app/          les écrans (un fichier = un écran, grâce à Expo Router)
+├── components/   les composants réutilisables (boutons, champs, cartes d'événement…)
+├── hooks/        la logique avec état : useAuth, useEvents, useWeather, useUserLocation…
+├── context/      l'état partagé : AuthContext (utilisateur connecté), EventsContext (événements)
+├── services/     la logique sans React : stockage, authentification, CRUD, météo, localisation
+├── utils/        les petites fonctions : dates, distance, tri
+├── types/        les types TypeScript : User, Event
+├── i18n/         la traduction (fr.json, en.json)
+├── data/         les événements de démonstration
+└── constants/    le thème : couleurs, polices, espacements
+```
+
+- Les **écrans** affichent et assemblent des composants.
+- Les **contextes** gardent l'état partagé, et les écrans y accèdent avec `useAuth()` et `useEvents()`.
+- Les **services** font le travail. **Un seul fichier**, `services/storage.ts`, accède à AsyncStorage.
+
+**Sécurité (prototype) :** les mots de passe ne sont jamais enregistrés en clair, seulement leur empreinte **SHA-256** (`expo-crypto`). Sans serveur, c'est une sécurité de démonstration, pas de production.
+
+---
+
+## Technologies
+
+| Outil | Rôle |
+|---|---|
+| React Native + Expo (SDK 57) | l'application mobile |
+| TypeScript | le typage du code |
+| Expo Router (React Navigation) | la navigation |
+| AsyncStorage | le stockage local |
+| i18next | la traduction français / anglais |
+| react-native-calendars | le calendrier |
+| expo-location | le géocodage et la position |
+| expo-calendar | l'ajout au calendrier du téléphone |
+| expo-crypto | le hachage des mots de passe |
+| Open-Meteo | l'API météo |
+
+---
+
+## Limites connues
+
+- Les données sont stockées **sur le téléphone** : elles ne sont pas partagées entre les membres. Il faudrait un serveur pour ça.
+- Le **splash screen** personnalisé ne s'affiche pas dans **Expo Go**, qui montre son propre écran de chargement. Il apparaît dans une version compilée de l'application.
+- La **météo** n'est disponible que pour les événements des 16 prochains jours (la limite d'Open-Meteo).

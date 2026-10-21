@@ -1,6 +1,6 @@
 /**
  * Grande carte « Notre sélection » de l'accueil : met en avant le prochain événement.
- * (Les images de catégorie arriveront plus tard : pour l'instant, fond vert-bleu.)
+ * Fond vert-bleu avec un rond décoratif.
  */
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';

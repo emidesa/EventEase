@@ -1,6 +1,6 @@
 /**
  * Puce en forme de pilule, sélectionnable.
- * Servira pour le choix de la langue
+ * Utilisée pour les filtres de catégorie, la catégorie du formulaire et le choix de la langue.
  */
 import { Pressable, StyleSheet, Text } from 'react-native';
 

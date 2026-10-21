@@ -28,13 +28,13 @@
       "email": "Email address",
       "emailPlaceholder": "lea@example.com",
       "password": "Password",
-      "passwordPlaceholder": "At least 6 characters"
+      "passwordPlaceholder": "At least {{min}} characters"
     }
   },
   "errors": {
     "required": "This field is required.",
     "invalidEmail": "Invalid email address.",
-    "passwordTooShort": "Password must be at least 6 characters.",
+    "passwordTooShort": "Password must be at least {{min}} characters.",
     "termsRequired": "You must accept the terms.",
     "emailTaken": "An account already exists with this email.",
     "invalidCredentials": "Incorrect email or password.",

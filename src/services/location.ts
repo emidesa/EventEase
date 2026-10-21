@@ -8,12 +8,7 @@ import * as Location from 'expo-location';
 import { Platform } from 'react-native';
 
 import { EventLocation } from '@/types/event';
-
-/** Un point GPS. */
-export type Coordinates = {
-  latitude: number;
-  longitude: number;
-};
+import { Coordinates } from '@/types/location';
 
 /**
  * Position actuelle du téléphone.

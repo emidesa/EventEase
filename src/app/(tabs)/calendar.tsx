@@ -9,13 +9,13 @@ import { Calendar, DateData } from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EventCard } from '@/components/events/EventCard';
-import { colors, fonts, fontSizes, radius, spacing, textStyles } from '@/constants/theme';
+import { colors, fonts, radius, spacing, textStyles } from '@/constants/theme';
 import { useAuth } from '@/hooks/useAuth';
 import { useEvents } from '@/hooks/useEvents';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import '@/i18n/calendarLocales'; // noms des mois et des jours en français / anglais
 import { toDateKey } from '@/utils/date';
-import { sortByDate } from '@/utils/events';
+import { isParticipant, sortByDate } from '@/utils/events';
 import { openEventDetail } from '@/utils/navigation';
 
 export default function CalendarScreen() {
@@ -50,8 +50,7 @@ export default function CalendarScreen() {
         renderItem={({ item }) => (
           <EventCard
             event={item}
-            // user peut être null une fraction de seconde pendant la déconnexion
-            isParticipating={user ? item.participants.includes(user.id) : false}
+            isParticipating={isParticipant(item, user)}
             userPosition={userPosition}
             onPress={() => openEventDetail(item.id)}
           />
@@ -88,7 +87,7 @@ export default function CalendarScreen() {
           </View>
         }
         // Affiché quand le jour choisi n'a aucun événement
-        ListEmptyComponent={<Text style={styles.empty}>{t('calendar.empty')}</Text>}
+        ListEmptyComponent={<Text style={textStyles.emptyText}>{t('calendar.empty')}</Text>}
         contentContainerStyle={styles.content}
       />
     </SafeAreaView>
@@ -117,11 +116,5 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     padding: spacing.sm,
     overflow: 'hidden',
-  },
-  empty: {
-    fontFamily: fonts.regular,
-    fontSize: fontSizes.small,
-    color: colors.textMuted,
-    textAlign: 'center',
   },
 });

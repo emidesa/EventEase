@@ -16,7 +16,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useEvents } from '@/hooks/useEvents';
 import { useUserLocation } from '@/hooks/useUserLocation';
 import { isPast } from '@/utils/date';
-import { sortByDate } from '@/utils/events';
+import { isParticipant, sortByDate } from '@/utils/events';
 import { openEventDetail } from '@/utils/navigation';
 import { getFirstName } from '@/utils/text';
 
@@ -51,8 +51,7 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <EventCard
             event={item}
-            // user peut être null une fraction de seconde pendant la déconnexion
-            isParticipating={user ? item.participants.includes(user.id) : false}
+            isParticipating={isParticipant(item, user)}
             userPosition={userPosition}
             onPress={() => openEventDetail(item.id)}
           />
@@ -81,7 +80,7 @@ export default function HomeScreen() {
         }
         // Affiché à la place de la liste quand elle est vide
         ListEmptyComponent={
-          isLoading ? null : <Text style={styles.empty}>{t('home.empty')}</Text>
+          isLoading ? null : <Text style={textStyles.emptyText}>{t('home.empty')}</Text>
         }
         contentContainerStyle={styles.content}
       />
@@ -105,11 +104,5 @@ const styles = StyleSheet.create({
     fontFamily: fonts.title,
     fontSize: fontSizes.heading - 6,
     color: colors.text,
-  },
-  empty: {
-    fontFamily: fonts.regular,
-    fontSize: fontSizes.small,
-    color: colors.textMuted,
-    textAlign: 'center',
   },
 });

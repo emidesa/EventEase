@@ -1,5 +1,5 @@
 /**
- * En-tête du détail d'un événement : un bandeau de couleur (en attendant les images de catégorie)
+ * En-tête du détail d'un événement : un bandeau de couleur
  * avec un bouton retour rond en haut à gauche et un cœur (favori) en haut à droite.
  */
 import { Ionicons } from '@expo/vector-icons';
