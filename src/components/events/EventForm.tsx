@@ -1,11 +1,11 @@
 /**
  * Formulaire d'un événement : nom, description, lieu, début et fin, catégorie.
- * Il sert pour la CRÉATION (champs vides) et servira pour la MODIFICATION (champs pré-remplis).
+ * Il sert pour la CRÉATION (champs vides) et pour la MODIFICATION (champs pré-remplis).
  * Quand tout est valide, il appelle onSubmit avec les données ; c'est l'écran qui décide quoi en faire.
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
 import { Chip } from '@/components/ui/Chip';
@@ -87,20 +87,26 @@ export function EventForm({ initialValues, submitLabel, onSubmit }: EventFormPro
     }
 
     setLoading(true);
+    try {
+      // 3. Le lieu : on cherche ses coordonnées GPS à partir de l'adresse tapée (géocodage)
+      const location = await buildEventLocation(placeName, initialValues?.location);
 
-    // 3. Le lieu : on cherche ses coordonnées GPS à partir de l'adresse tapée (géocodage)
-    const location = await buildEventLocation(placeName, initialValues?.location);
-
-    // 4. Tout est bon : on envoie les données à l'écran
-    await onSubmit({
-      title: title.trim(),
-      description: description.trim(),
-      category,
-      date,
-      endDate,
-      location,
-    });
-    setLoading(false);
+      // 4. Tout est bon : on envoie les données à l'écran
+      await onSubmit({
+        title: title.trim(),
+        description: description.trim(),
+        category,
+        date,
+        endDate,
+        location,
+      });
+    } catch {
+      // L'enregistrement a échoué (très rare) : on prévient l'utilisateur
+      Alert.alert(t('errors.unknown'));
+    } finally {
+      // "finally" s'exécute toujours, erreur ou pas : le bouton n'est jamais bloqué
+      setLoading(false);
+    }
   }
 
   return (

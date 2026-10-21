@@ -40,6 +40,9 @@ export function useWeather(event: Event | undefined): DailyWeather | null {
 
     // On appelle l'API ; quand la réponse arrive (.then), on la garde dans l'état
     getDailyWeather(latitude, longitude, toDateKey(new Date(date))).then(setWeather);
+
+    // On efface l'ancienne météo, sinon elle resterait affichée après une modification.
+    return () => setWeather(null);
   }, [latitude, longitude, date, endDate]); // on recommence si le lieu ou la date changent
 
   return weather;
