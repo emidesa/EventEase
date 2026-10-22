@@ -36,6 +36,9 @@ export function LanguageSelector() {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row', // « Langue » et les puces sur la même ligne
+    alignItems: 'center', // centrés en hauteur
+    justifyContent: 'space-between', // « Langue » à gauche, les puces à droite
     gap: spacing.sm,
   },
   label: {

@@ -59,7 +59,6 @@
     "titleHighlight": "share",
     "titleEnd": "?",
     "featuredBadge": "Our pick",
-    "upcomingOverline": "Coming up",
     "upcomingTitle": "Upcoming events",
     "empty": "No events for now."
   },
@@ -110,7 +109,7 @@
     "description": "Description",
     "descriptionPlaceholder": "Tell people about your event…",
     "location": "Place",
-    "locationPlaceholder": "E.g. Maison des Associations, Lyon",
+    "locationPlaceholder": "E.g. Maison Folie Wazemmes, Lille",
     "start": "Start",
     "end": "End",
     "category": "Category",

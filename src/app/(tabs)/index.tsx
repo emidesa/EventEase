@@ -31,13 +31,14 @@ export default function HomeScreen() {
   // 1. On trie les événements par date (le plus proche en premier)
   const sortedEvents = sortByDate(events);
 
-  // 2. On garde seulement la catégorie choisie (ou tout, si "all")
-  const filteredEvents = sortedEvents.filter(
-    (event) => category === 'all' || event.category === category,
+  // 2. On garde seulement les événements à venir (les passés restent visibles dans le Calendrier
+  //    et le Profil), de la catégorie choisie (ou de toutes, si "all")
+  const upcomingEvents = sortedEvents.filter(
+    (event) => !isPast(event.endDate) && (category === 'all' || event.category === category),
   );
 
-  // 3. L'événement mis en avant = le premier événement à venir
-  const featuredEvent = filteredEvents.find((event) => !isPast(event.endDate));
+  // 3. L'événement mis en avant = le premier de la liste (le plus proche)
+  const featuredEvent = upcomingEvents[0];
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -46,7 +47,7 @@ export default function HomeScreen() {
         si la liste devient longue). Tout ce qui est au-dessus de la liste va dans ListHeaderComponent.
       */}
       <FlatList
-        data={filteredEvents} // la liste à afficher
+        data={upcomingEvents} // la liste à afficher
         keyExtractor={(event) => event.id} // identifiant unique de chaque carte (comme "key")
         renderItem={({ item }) => (
           <EventCard
@@ -72,10 +73,7 @@ export default function HomeScreen() {
             ) : null}
 
             {/* Titre de la liste */}
-            <View>
-              <Text style={textStyles.overline}>{t('home.upcomingOverline')}</Text>
-              <Text style={styles.sectionTitle}>{t('home.upcomingTitle')}</Text>
-            </View>
+            <Text style={styles.sectionTitle}>{t('home.upcomingTitle')}</Text>
           </View>
         }
         // Affiché à la place de la liste quand elle est vide

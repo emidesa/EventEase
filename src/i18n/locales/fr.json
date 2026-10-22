@@ -59,7 +59,6 @@
     "titleHighlight": "partager",
     "titleEnd": " ?",
     "featuredBadge": "Notre sélection",
-    "upcomingOverline": "À venir",
     "upcomingTitle": "Prochains rendez-vous",
     "empty": "Aucun événement pour le moment."
   },
@@ -110,7 +109,7 @@
     "description": "Description",
     "descriptionPlaceholder": "Présentez votre événement…",
     "location": "Lieu",
-    "locationPlaceholder": "Ex. Maison des Associations, Lyon",
+    "locationPlaceholder": "Ex. Maison Folie Wazemmes, Lille",
     "start": "Début",
     "end": "Fin",
     "category": "Catégorie",
